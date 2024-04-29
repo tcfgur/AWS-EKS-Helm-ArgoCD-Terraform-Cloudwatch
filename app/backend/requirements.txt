@@ -1,0 +1,5 @@
+boto3
+Flask
+pg8000
+flask_cors
+watchtower

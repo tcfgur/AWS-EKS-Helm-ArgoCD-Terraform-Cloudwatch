@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+spec:
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      annotations: 
+        iam.amazonaws.com/role: arn:aws:iam::533267417178:role/RDS-Connect-Role
+      labels:
+        app: frontend
+    spec:
+      serviceAccountName: regcred
+      containers:
+      - name: frontend
+        image: 533267417178.dkr.ecr.eu-central-1.amazonaws.com/frontend:latest
+        imagePullPolicy: Always
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 80

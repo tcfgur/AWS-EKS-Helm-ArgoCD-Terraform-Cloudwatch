@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PostgreSQL Version and Hostname</title>
+</head>
+<body>
+    <h1>PostgreSQL Information</h1>
+    <button id="getVersionBtn">Get Information</button>
+    <div id="info"></div>
+    <div id="requests"></div>
+
+    <script>
+        let requestCount = 0;
+
+        document.getElementById('getVersionBtn').addEventListener('click', async function() {
+            updateStatus('Loading...');
+            try {
+                const response = await fetch('${endpoint_url}/get-postgresql-version');
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const data = await response.json();
+                document.getElementById('info').innerHTML = `
+                    <p>Hostname: ${data.hostname}</p>
+                    <p>PostgreSQL Version: ${data.postgresql_version}</p>
+                `;
+                updateStatus('Information retrieved successfully');
+                requestCount++;
+                displayRequestInfo();
+            } catch (error) {
+                console.error('Error:', error);
+                updateStatus('Failed to fetch information: ' + error.message);
+            }
+        });
+
+        function displayRequestInfo() {
+            document.getElementById('requests').innerHTML = `
+                <p>Total Requests: ${requestCount}</p>
+                <p>Last Request Time: ${new Date().toLocaleString()}</p>
+            `;
+        }
+
+        function updateStatus(message) {
+            document.getElementById('status').innerText = message;
+        }
+    </script>
+    <div id="status"></div>
+</body>
+</html>

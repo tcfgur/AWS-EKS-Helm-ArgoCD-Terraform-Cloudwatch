@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: backend
+  namespace: argocd 
+spec:
+  project: default
+  source:
+    repoURL: '533267417178.dkr.ecr.eu-central-1.amazonaws.com'
+    chart: 'backend'
+    targetRevision: '0.2.0' 
+    helm:
+      version: v3
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+      allowEmpty: true
+    syncOptions:
+      - ServerSideApply=true

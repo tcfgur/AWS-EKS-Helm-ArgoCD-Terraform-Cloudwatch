@@ -1,0 +1,14 @@
+apiVersion: v1
+stringData:
+  type:  helm
+  enableOCI: "true"
+  name: my-oci-charts
+  password: ${aws_password}
+  url: 533267417178.dkr.ecr.eu-central-1.amazonaws.com
+  username: AWS
+kind: Secret
+metadata:
+  namespace: argocd
+  labels:
+    argocd.argoproj.io/secret-type: repository
+  name: my-oci-charts
