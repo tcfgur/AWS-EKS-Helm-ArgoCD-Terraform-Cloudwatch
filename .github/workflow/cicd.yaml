@@ -4,7 +4,7 @@ on:
     branches:  
       - "main"
 jobs: 
-  Project-Deployment-1:
+  ProjectBuild:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -50,9 +50,9 @@ jobs:
         run: terraform apply -auto-approve 
         working-directory: Terraform
 
-  Project-Deployment-2: 
+  ProjectDeployment: 
     runs-on: ubuntu-latest
-    needs: Project-Deployment-1
+    needs: ProjectBuild
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
