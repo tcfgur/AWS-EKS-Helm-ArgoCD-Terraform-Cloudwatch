@@ -15,7 +15,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-region: ${{ secrets.AWS_REGION }}
+          aws-region: eu-central-1
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       - run: |
           aws ecr get-login-password --region eu-central-1 | docker login --username AWS --password-stdin 533267417178.dkr.ecr.eu-central-1.amazonaws.com
@@ -62,7 +62,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-region: ${{ secrets.AWS_REGION }}
+          aws-region: eu-central-1
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       - run: |
           aws sts get-caller-identity
