@@ -8,9 +8,9 @@ resource "aws_cloudwatch_metric_alarm" "eks_cpu_alarm" {
   statistic           = "Average"
   threshold           = 80
   alarm_description   = "Alarm when CPU exceeds 80% for 2 consecutive periods"
-  alarm_actions       = [aws_sns_topic.eks_alerts_topic.arn] // Use square brackets to define a set
+  alarm_actions       = [aws_sns_topic.eks_alerts_topic.arn]
   dimensions = {
-    ClusterName = aws_eks_cluster.my_cluster.name // Remove quotes to reference output value
+    ClusterName = aws_eks_cluster.my_cluster.name 
   }
 }
 
@@ -24,8 +24,8 @@ resource "aws_cloudwatch_metric_alarm" "eks_memory_alarm" {
   statistic           = "Average"
   threshold           = 80
   alarm_description   = "Alarm when memory exceeds 80% for 2 consecutive periods"
-  alarm_actions       = [aws_sns_topic.eks_alerts_topic.arn] // Use square brackets to define a set
+  alarm_actions       = [aws_sns_topic.eks_alerts_topic.arn] 
   dimensions = {
-    ClusterName = aws_eks_cluster.my_cluster.name // Remove quotes to reference output value
+    ClusterName = aws_eks_cluster.my_cluster.name 
   }
 }

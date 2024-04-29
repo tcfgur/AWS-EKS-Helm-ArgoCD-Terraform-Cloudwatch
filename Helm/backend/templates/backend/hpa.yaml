@@ -15,6 +15,6 @@ spec:
       name: cpu
       target:
         type: Utilization
-        averageUtilization: 1 # Hedef CPU kullanımı yüzdesi
+        averageUtilization: 1 # Percentage of target CPU utilization
 
 

@@ -8,18 +8,18 @@ from flask_cors import CORS
 import watchtower
 from logging.handlers import RotatingFileHandler
 
-# Flask uygulamasını oluştur
+# Create the Flask app
 app = Flask(__name__)
 CORS(app)
 
-# CloudWatch Logs istemcisini oluştur ve global olarak ayarla
+# Create CloudWatch Logs client and set it globally
 boto3.setup_default_session(region_name='eu-central-1')
 cloudwatch = boto3.client('logs')
 
-# CloudWatch Log grubunun adı
+# Name of the CloudWatch Log group
 log_group_name = '/eks-backend/application/logs'
 
-# Log grubunu kontrol et ve oluştur
+# Check and create log group
 def ensure_log_group():
     try:
         response = cloudwatch.describe_log_groups(logGroupNamePrefix=log_group_name)
@@ -31,11 +31,11 @@ def ensure_log_group():
     except Exception as e:
         logger.error("CloudWatch Log grubu oluşturma hatası: %s", str(e))
 
-# Logger ayarları
+# Logger settings
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
-# Konsol ve CloudWatch için log handler'ları ayarla
+# Set log handlers for console and CloudWatch
 console_handler = logging.StreamHandler()
 logger.addHandler(console_handler)
 
@@ -44,7 +44,7 @@ logger.addHandler(cloudwatch_handler)
 
 ensure_log_group()
 
-# PostgreSQL bilgilerini al ve bağlan
+# Get PostgreSQL information and connect
 def get_postgresql_version():
     secrets_manager_client = boto3.client('secretsmanager')
     rds_client = boto3.client('rds')
