@@ -14,16 +14,31 @@ resource "aws_iam_role" "my_eks_role" {
 
 resource "aws_iam_role" "my_node_role" {
   name               = "my-node-role"
-  assume_role_policy =  templatefile("oidc_assume_role_policy.json", { OIDC_ARN = aws_iam_openid_connect_provider.cluster.arn, OIDC_URL = replace(aws_iam_openid_connect_provider.cluster.url, "https://", ""), NAMESPACE = "kube-system", SA_NAME = "aws-node" })
-  tags = merge(
-    var.tags,
-    {
-      "ServiceAccountName"      = "aws-node"
-      "ServiceAccountNameSpace" = "kube-system"
-    }
-  )
-  depends_on = [aws_iam_openid_connect_provider.cluster]
+  assume_role_policy = jsonencode({
+    Statement = [{
+      Action = "sts:AssumeRole"
+      Effect = "Allow"
+      Principal = {
+        Service = "ec2.amazonaws.com"
+      }
+    }]
+    Version = "2012-10-17"
+  })
 }
+
+
+#resource "aws_iam_role" "my_node_role" {
+#  name               = "my-node-role"
+#  assume_role_policy =  templatefile("oidc_assume_role_policy.json", { OIDC_ARN = aws_iam_openid_connect_provider.cluster.arn, OIDC_URL = replace(aws_iam_openid_connect_provider.cluster.url, "https://", ""), NAMESPACE = "kube-system", SA_NAME = "aws-node" })
+#  tags = merge(
+#    var.tags,
+#    {
+#      "ServiceAccountName"      = "aws-node"
+#      "ServiceAccountNameSpace" = "kube-system"
+#    }
+#  )
+#  depends_on = [aws_iam_openid_connect_provider.cluster]
+#}
 
 
 
