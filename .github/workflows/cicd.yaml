@@ -87,6 +87,7 @@ jobs:
           mv app/frontend/index.html.new app/frontend/index.html
           aws ecr get-login-password --region eu-central-1 | docker login --username AWS --password-stdin 533267417178.dkr.ecr.eu-central-1.amazonaws.com
           docker build -t 533267417178.dkr.ecr.eu-central-1.amazonaws.com/backend:latest -f app/frontend/Dockerfile app/frontend
+          docker images
           docker push 533267417178.dkr.ecr.eu-central-1.amazonaws.com/frontend:latest
       - name: Helm Package Frontend
         run: |
