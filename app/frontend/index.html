@@ -17,7 +17,7 @@
         document.getElementById('getVersionBtn').addEventListener('click', async function() {
             updateStatus('Loading...');
             try {
-                const response = await fetch('${endpoint_url}/get-postgresql-version');
+                const response = await fetch('http://${endpoint_url}/get-postgresql-version');
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }

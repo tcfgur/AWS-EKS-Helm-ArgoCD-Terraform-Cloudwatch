@@ -81,7 +81,7 @@ jobs:
           aws eks --region eu-central-1 update-kubeconfig --name $cluster_name
       - name: Build Frontend  
         run: | 
-          endpoint_url=$(kubectl get svc backend -o=jsonpath='{.status.loadBalancer.ingress[0].ip}')
+          endpoint_url=$(kubectl get svc backend -o json | jq -r '.status.loadBalancer.ingress[0].hostname'}')
           export endpoint_url
           envsubst < app/frontend/index.html > app/frontend/index.html.new
           mv app/frontend/index.html.new app/frontend/index.html
