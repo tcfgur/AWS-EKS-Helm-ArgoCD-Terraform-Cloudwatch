@@ -86,8 +86,7 @@ jobs:
           envsubst < app/frontend/index.html > app/frontend/index.html.new
           mv app/frontend/index.html.new app/frontend/index.html
           aws ecr get-login-password --region eu-central-1 | docker login --username AWS --password-stdin 533267417178.dkr.ecr.eu-central-1.amazonaws.com
-          docker build -t frontend -f app/frontend/Dockerfile app/frontend
-          docker tag frontend:latest 533267417178.dkr.ecr.eu-central-1.amazonaws.com/backend:latest
+          docker build -t 533267417178.dkr.ecr.eu-central-1.amazonaws.com/backend:latest -f app/frontend/Dockerfile app/frontend
           docker push 533267417178.dkr.ecr.eu-central-1.amazonaws.com/frontend:latest
       - name: Helm Package Frontend
         run: |
