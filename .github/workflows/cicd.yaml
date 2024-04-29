@@ -99,4 +99,4 @@ jobs:
       - name: Deploy ArgoCD Frontend
         run: |
           kubectl apply -f ArgoCD/frontendjob.yaml
-          kubectl get svc frontend -o json | jq -r '.status.loadBalancer.ingress[0].hostname
+          kubectl get svc frontend -o json | jq -r '.status.loadBalancer.ingress[0].hostname'
