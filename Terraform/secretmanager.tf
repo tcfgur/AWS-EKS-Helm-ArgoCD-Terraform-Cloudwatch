@@ -4,7 +4,7 @@ data "aws_secretsmanager_secret_version" "postgresql_credentials" {
 }
 
 resource "aws_secretsmanager_secret" "postgresql_credentials" {
-  name = "ukcasestudy-postgresql-credentials"
+  name = "casesecret-postgresql-credentials"
 }
 
 resource "aws_secretsmanager_secret_version" "postgresql_credentials_version" {
