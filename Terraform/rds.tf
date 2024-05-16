@@ -6,7 +6,7 @@ resource "aws_db_instance" "postgresql_db" {
   storage_type          = "gp2"            
   publicly_accessible   = false               
   db_subnet_group_name  = aws_db_subnet_group.postgresql_subnet_group.name
-  skip_final_snapshot   = false
+  skip_final_snapshot   = true
   iam_database_authentication_enabled = true
 
   username              = jsondecode(data.aws_secretsmanager_secret_version.postgresql_credentials.secret_string)["username"]
