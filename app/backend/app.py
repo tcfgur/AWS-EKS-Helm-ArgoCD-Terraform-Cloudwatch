@@ -50,7 +50,7 @@ def get_postgresql_version():
     rds_client = boto3.client('rds')
     
     try:
-        secret_response = secrets_manager_client.get_secret_value(SecretId='ukcasestudy-postgresql-credentials')
+        secret_response = secrets_manager_client.get_secret_value(SecretId='casesecret-postgresql-credentials')
         secret_data = json.loads(secret_response['SecretString'])
         endpoint = rds_client.describe_db_instances(DBInstanceIdentifier='my-postgresql-db')['DBInstances'][0]['Endpoint']['Address']
         
